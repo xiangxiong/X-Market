@@ -1,8 +1,8 @@
 README.MD
 
-## 技术栈选项:
-```
-SSG 技术.
+## technology stack:
 
+```
+SSG tech stack.
 
 ```

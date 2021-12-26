@@ -1,0 +1,29 @@
+{
+  "name": "fronted",
+  "version": "0.0.1",
+  "description": "> TODO: description",
+  "author": "za-xiangxiong <xiong.xiang@zatech.com>",
+  "homepage": "https://github.com/xiangxiong/X-Market/tree/main/packages/fronted#readme",
+  "license": "ISC",
+  "main": "lib/fronted.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiangxiong/X-Market.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/xiangxiong/X-Market/issues"
+  }
+}

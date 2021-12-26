@@ -1,0 +1,23 @@
+{
+  "name": "X-Market",
+  "version": "1.0.0",
+  "description": "README.MD",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiangxiong/X-Market.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xiangxiong/X-Market/issues"
+  },
+  "homepage": "https://github.com/xiangxiong/X-Market#readme",
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}

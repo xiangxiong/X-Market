@@ -1,29 +1,22 @@
 {
-  "name": "fronted",
-  "version": "0.0.1",
-  "description": "> TODO: description",
-  "author": "za-xiangxiong <xiong.xiang@zatech.com>",
-  "homepage": "https://github.com/xiangxiong/X-Market/tree/main/packages/fronted#readme",
-  "license": "ISC",
-  "main": "lib/fronted.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
-  "publishConfig": {
-    "registry": "http://registry.npmjs.org"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xiangxiong/X-Market.git"
-  },
+  "name": "my-app",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "bugs": {
-    "url": "https://github.com/xiangxiong/X-Market/issues"
+  "dependencies": {
+    "next": "12.0.7",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.4",
+    "@types/react": "17.0.38",
+    "eslint": "8.5.0",
+    "eslint-config-next": "12.0.7",
+    "typescript": "4.5.4"
   }
 }

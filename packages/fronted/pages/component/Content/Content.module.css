@@ -1,0 +1,17 @@
+.workspace{
+    display: flex;
+    flex-direction: row;
+    width: calc(100%-100px);
+    margin: 50px;
+}
+
+.content_model{
+    background: red;
+    width: 75%;
+}
+
+.sidebar{
+    background: gray;
+    width: 240px;
+    /* width: 25%; */
+}

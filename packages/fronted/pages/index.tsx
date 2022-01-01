@@ -15,15 +15,13 @@ interface TabPanelProps {
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
       hidden={value !== index}
       id={`vertical-tabpanel-${index}`}
       aria-labelledby={`vertical-tab-${index}`}
-      {...other}
-    >
+      {...other}>
       {value === index && (
         <Box sx={{ p: 3 }}>
           <Typography>{children}</Typography>
@@ -32,7 +30,6 @@ function TabPanel(props: TabPanelProps) {
     </div>
   );
 }
-
 
 function a11yProps(index: number) {
   return {
@@ -43,7 +40,7 @@ function a11yProps(index: number) {
 
 const Home: NextPage = () => {
   const [value, setValue] = useState(0);
-
+  
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -64,7 +61,6 @@ const Home: NextPage = () => {
     //     <Tab label="Project settings" {...a11yProps(1)} />
     //   </Tabs>
     //   <TabPanel value={value} index={0}>
-       
     //   </TabPanel>
     // </Box>
   );

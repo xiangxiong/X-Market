@@ -3,18 +3,17 @@ import styles from "./Workspace.module.css";
 import { StudioPanel } from "./StudioPanel";
 import { ViewPanel } from "./ViewPanel";
 import { createContext } from "react";
-import { IComponentElementsProps } from "../shared/types";
+import { IComponentElementsProps, IWorkspaceContext } from "../shared/types";
+import { useState } from "react";
 
-
-interface IWorkspaceContext{
-  markAsDone: (id:string) => void
-}
 
 export const WorkspaceContext = createContext<Partial<IWorkspaceContext>>({});
 
 export function Workspace() {
-  const componentElements: IComponentElementsProps[] = [
+
+  const [componentList,setComponentList] = useState<IComponentElementsProps[]>([
     {
+      key: (Math.random() * 100).toFixed(0),
       id: 1,
       status: "init",
       type: "Text",
@@ -22,6 +21,7 @@ export function Workspace() {
       text: "文本",
     },
     {
+      key: (Math.random() * 100).toFixed(0),
       id: 2,
       status: "init",
       type: "Rich Text",
@@ -29,6 +29,7 @@ export function Workspace() {
       text: "富文本",
     },
     {
+      key: (Math.random() * 100).toFixed(0),
       id: 3,
       status: "init",
       type: "Number",
@@ -36,6 +37,7 @@ export function Workspace() {
       text: "数字",
     },
     {
+      key: (Math.random() * 100).toFixed(0),
       id: 4,
       status: "init",
       type: "Multiple choice",
@@ -43,6 +45,7 @@ export function Workspace() {
       text: "多选",
     },
     {
+      key: (Math.random() * 100).toFixed(0),
       id: 5,
       status: "init",
       type: "Date choice",
@@ -50,6 +53,7 @@ export function Workspace() {
       text: "日期",
     },
     {
+      key: (Math.random() * 100).toFixed(0),
       id: 6,
       status: "init",
       type: "Date choice",
@@ -57,16 +61,19 @@ export function Workspace() {
       text: "图片",
     },
     {
+      key: (Math.random() * 100).toFixed(0),
       id: 7,
       status: "init",
       type: "Date choice",
       icon: "Multiple choice",
       text: "链接",
     },
-  ];
+  ]);
 
-  const markAsDone = (id: string) => {
-    console.log("markAsCount", id);
+  const markAsDone = (id: number) => {
+    const components = componentList.filter((item,i)=>item.id === id);
+    components[0].status = 'done';
+    setComponentList(componentList.filter((item,i)=> item.id !== id).concat(components[0]))
   };
 
   return (
@@ -77,8 +84,8 @@ export function Workspace() {
           <div className={styles.toolbar}>e3</div>
           <div className={styles.designer}>
             <div className={styles.sidebar}>
-              {componentElements.map((item, key) => {
-                return <StudioPanel item={item} key={item.id} />;
+              {componentList.map((item, key) => {
+                return <StudioPanel item={item} key={item.key} />;
               })}
             </div>
             <div className={styles.content_model}>
@@ -89,7 +96,15 @@ export function Workspace() {
                 </div>
               </div>
               <div className={styles.content_create_content}>
-                <ViewPanel></ViewPanel>
+                <ViewPanel>
+                    {
+                      componentList
+                        .filter((item,i)=>item.status === 'done')
+                        .map((item,i)=>(
+                          <StudioPanel item={item} key={item.key} />
+                        ))
+                    }
+                </ViewPanel>
               </div>
             </div>
           </div>

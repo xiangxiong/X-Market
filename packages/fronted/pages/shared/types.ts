@@ -1,11 +1,11 @@
 export interface IComponentElementsProps {
-  id: string;
+  key: string;
+  id: number;
   status: 'init' | 'done';
   type: string;
   icon: string;
   text: string;
 }
-
 export interface IWorkspaceContext{
-  markAsDone: (id:string) => void
+  markAsDone: (id:number) => void
 }

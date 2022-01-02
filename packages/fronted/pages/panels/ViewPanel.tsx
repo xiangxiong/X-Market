@@ -14,7 +14,7 @@ export const ViewPanel: React.FC<IBoxTargetProps> = (props) => {
   const [{ isOver }, drop] = useDrop(
     () => ({
       accept: ItemTypes.BOX,
-      drop: (item: { id: string }, monitor) => {
+      drop: (item: { id: number }, monitor) => {
         markAsDone(item.id);
       },
       collect: (monitor) => ({

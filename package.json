@@ -20,5 +20,8 @@
   "homepage": "https://github.com/xiangxiong/X-Market#readme",
   "devDependencies": {
     "lerna": "^4.0.0"
+  },
+  "dependencies": {
+    "react-dnd": "^14.0.4"
   }
 }

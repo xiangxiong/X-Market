@@ -1,35 +1,30 @@
-import { useContext } from "react";
-import { useDrop } from "react-dnd";
-import { ItemTypes } from "./ItemTypes";
-import { WorkspaceContext } from "./Workspace";
-import { IWorkspaceContext } from "./../shared/types";
-import { useEffect } from "react";
+import styles from './Workspace.module.css';
+import { IComponentElementsProps } from "../shared/types";
+import React from 'react';
+import { useState } from 'react';
+import { useCallback } from 'react';
+import classNames from 'classnames';
 
-interface IBoxTargetProps {
-  children: React.ReactNode;
+interface IViewPanelProps{
+    item:IComponentElementsProps
 }
 
-export const ViewPanel: React.FC<IBoxTargetProps> = (props) => {
-  const { markAsDone } = useContext<IWorkspaceContext>(WorkspaceContext);
-  const [{ isOver }, drop] = useDrop(
-    () => ({
-      accept: ItemTypes.BOX,
-      drop: (item: { id: number }, monitor) => {
-        markAsDone(item.id);
-      },
-      collect: (monitor) => ({
-        isOver: monitor.isOver(),
-      }),
-    }),
-    [markAsDone]
-  );
+export const ViewPanel:React.FC<IViewPanelProps> = ({item}) => {
 
-  return (
-    <div
-      ref={drop}
-      style={{ height: "200px", width: "500px", background: "red" }}
-    >
-      {props.children}
+    const [active,setActive] = useState<boolean>();
+
+    const onViewPanelHandleClick = useCallback(()=>{
+        setActive(true);
+    },[]);
+
+    const viewPanelCls = classNames(styles.view_panel,{
+        [styles.view_panel_active] : active
+    })
+
+    return <div className={viewPanelCls} onClick={onViewPanelHandleClick}>
+        {item.text}
+        {
+            active && <div className={styles.view_panel_edit_bar}></div>
+        } 
     </div>
-  );
-};
+}

@@ -6,6 +6,7 @@ import { createContext } from "react";
 import { IComponentElementsProps, IWorkspaceContext } from "../shared/types";
 import { useState } from "react";
 import {ViewPanel} from './ViewPanel';
+import { useCallback } from "react";
 
 export const WorkspaceContext = createContext<Partial<IWorkspaceContext>>({});
 
@@ -70,6 +71,7 @@ export function Workspace() {
       },
     ]
   );
+
   const [dragList, setDragList] = useState<IComponentElementsProps[]>();
 
   const markAsDone = (id: number) => {
@@ -88,12 +90,18 @@ export function Workspace() {
     setComponentList(list.sort());
   };
 
+  const onHandleSaveChanges = useCallback(()=>{
+    console.log('dragList',dragList);
+  },[dragList]);
+
   return (
     <WorkspaceContext.Provider value={{ markAsDone }}>
       <div className={styles.workspace}>
         <div className={styles.navigation}>Nav Bar</div>
         <div className={styles.wrapper}>
-          <div className={styles.toolbar}>e3</div>
+          <div className={styles.toolbar}>
+            <button onClick={onHandleSaveChanges}>Save Changes</button>
+          </div>
           <div className={styles.designer}>
             <div className={styles.sidebar}>
               {componentList.map((item, key) => {

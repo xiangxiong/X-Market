@@ -5,7 +5,9 @@ export interface IComponentElementsProps {
   type: string;
   icon: string;
   text: string;
+  selected?: boolean
 }
 export interface IWorkspaceContext{
-  markAsDone: (id:number) => void
+  markAsDone: (id:number) => void,
+  onChangeDragSelectedStatus: (index: number) =>void
 }

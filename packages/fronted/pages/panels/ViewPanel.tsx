@@ -6,6 +6,9 @@ import { useCallback } from "react";
 import classNames from "classnames";
 import * as VisualDesignComponents from "./../component";
 import { HolderOutlined,DeleteOutlined,CaretUpOutlined,CopyOutlined } from '@ant-design/icons';
+import { useContext } from "react";
+import { WorkspaceContext } from "./Workspace";
+import { IWorkspaceContext } from "../shared/types";
 
 interface IViewPanelProps {
   item: IComponentElementsProps;
@@ -13,14 +16,17 @@ interface IViewPanelProps {
 
 export const ViewPanel: React.FC<IViewPanelProps> = ({ item }) => {
   const [active, setActive] = useState<boolean>();
+  const { onChangeDragSelectedStatus } = useContext<IWorkspaceContext>(WorkspaceContext);
 
   const onViewPanelHandleClick = useCallback(() => {
     setActive(true);
+    onChangeDragSelectedStatus(item.id);
   }, []);
 
   const viewPanelCls = classNames(styles.view_panel, {
     [styles.view_panel_active]: active,
   });
+
   const Comp = VisualDesignComponents[item.type];
 
   const IconStyle:React.CSSProperties = {

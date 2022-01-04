@@ -5,7 +5,7 @@ import { ViewportPanel } from "./ViewportPanel";
 import { createContext } from "react";
 import { IComponentElementsProps, IWorkspaceContext } from "../shared/types";
 import { useState } from "react";
-import {ViewPanel} from './ViewPanel';
+import { ViewPanel } from "./ViewPanel";
 import { useCallback } from "react";
 
 export const WorkspaceContext = createContext<Partial<IWorkspaceContext>>({});
@@ -77,8 +77,9 @@ export function Workspace() {
   const markAsDone = (id: number) => {
     const components = componentList.filter((item, i) => item.id === id);
     components[0].status = "done";
-    setDragList((state)=>{
-      if(state){
+    initializationSelectedItems(components);
+    setDragList((state) => {
+      if (state) {
         return components.concat(state);
       }
       return components;
@@ -90,12 +91,33 @@ export function Workspace() {
     setComponentList(list.sort());
   };
 
-  const onHandleSaveChanges = useCallback(()=>{
-    console.log('dragList',dragList);
-  },[dragList]);
+  const initializationSelectedItems = (
+    componentList: IComponentElementsProps[]
+  ) => {
+    const result = componentList.filter((v, i) => {
+      if (!Object.keys(v).includes("selected")) {
+        Object.defineProperty(v, "selected", {
+          value: false,
+          writable: true,
+          enumerable: true,
+        });
+      }
+    });
+    return result;
+  };
+
+  const onChangeDragSelectedStatus = (index: number) => {
+    console.log("index", index);
+    console.log("dragList", dragList);
+  };
+
+  const onHandleSaveChanges = useCallback(() => {
+    console.log("dragList", dragList);
+  }, [dragList]);
 
   return (
-    <WorkspaceContext.Provider value={{ markAsDone }}>
+    <WorkspaceContext.Provider
+      value={{ markAsDone, onChangeDragSelectedStatus }}>
       <div className={styles.workspace}>
         <div className={styles.navigation}>Nav Bar</div>
         <div className={styles.wrapper}>
@@ -119,7 +141,7 @@ export function Workspace() {
                 <ViewportPanel>
                   {dragList &&
                     dragList.map((item, i) => (
-                      <ViewPanel item={item} key={i}/>
+                      <ViewPanel item={item} key={i} />
                     ))}
                 </ViewportPanel>
               </div>

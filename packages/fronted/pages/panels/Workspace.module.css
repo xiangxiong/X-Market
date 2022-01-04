@@ -88,14 +88,21 @@
 
 .view_panel{
     width: calc(100%-10) ;
-    height: 100px;
+    height: 120px;
     background: #fff;
     padding: 0;
     position: relative;
     margin: 10px;
-    cursor: move;
     line-height: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 8px 0 #00000008, 0 8px 14px 0 #10213c14;
 }
+
+.view_panel>div:first-child{
+    padding: 8px 8px 0 16px;
+    cursor: move;
+}
+
 .view_panel_active{
     border: 1px rgb(219, 60, 0) solid;
 }
@@ -108,4 +115,5 @@
     height: 26px;
     background: rgb(219, 60, 0);
     border-top-left-radius: 8px;
+    border-bottom-right-radius: 14px;
 }

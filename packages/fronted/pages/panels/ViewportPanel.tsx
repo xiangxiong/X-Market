@@ -26,8 +26,7 @@ export const ViewportPanel: React.FC<IBoxTargetProps> = (props) => {
   return (
     <div
       ref={drop}
-      style={{ height: "100%", width: "100%" }}
-    >
+      style={{ height: "100%", width: "100%" }}>
       {props.children}
     </div>
   );

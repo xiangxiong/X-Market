@@ -1,6 +1,9 @@
-##  React + Typescript
+##  全渠道内容管理平台.
 
-## Project setup
+## 技术栈  
+* React + Typescript + NestJs
+
+## 项目运行
 
 ```
 npm run start:fronted  前端

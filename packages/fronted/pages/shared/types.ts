@@ -6,6 +6,7 @@ export interface IComponentElementsProps {
   icon: string;
   text: string;
   selected?: boolean
+  componentId?: string;
 }
 export interface IWorkspaceContext{
   markAsDone: (id:number) => void,

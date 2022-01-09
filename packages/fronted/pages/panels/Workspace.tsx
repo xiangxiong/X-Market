@@ -7,6 +7,7 @@ import { IComponentElementsProps, IWorkspaceContext } from "../shared/types";
 import { useState } from "react";
 import { ViewPanel } from "./ViewPanel";
 import { useCallback } from "react";
+import { v4 } from 'uuid';
 
 export const WorkspaceContext = createContext<Partial<IWorkspaceContext>>({});
 
@@ -75,19 +76,27 @@ export function Workspace() {
   const [dragList, setDragList] = useState<IComponentElementsProps[]>();
 
   const markAsDone = (id: number) => {
+
     const components = componentList.filter((item, i) => item.id === id);
     components[0].status = "done";
+    components[0].componentId = v4();
+
     initializationSelectedItems(components);
+    console.log('result',components);
+
     setDragList((state) => {
+      console.log('state',state);
       if (state) {
         return components.concat(state);
       }
       return components;
     });
+
     const list = componentList
       .filter((item, i) => item.id !== id)
       .concat(components[0])
       .sort((a, b) => a.id - b.id);
+
     setComponentList(list.sort());
   };
 
@@ -106,14 +115,23 @@ export function Workspace() {
     return result;
   };
 
+  console.log("dragList", dragList);
   const onChangeDragSelectedStatus = (index: number) => {
     console.log("index", index);
     console.log("dragList", dragList);
-  };
+    // const result:IComponentElementsProps[] = dragList?.map((item,key)=>{
+    //   item.id === index? item.selected = true:item.selected = false
+    //   return item;
+    // });
+    // console.log('result',result);
+    // setDragList(result);
+  }
 
   const onHandleSaveChanges = useCallback(() => {
     console.log("dragList", dragList);
   }, [dragList]);
+
+  console.log("void List", dragList);
 
   return (
     <WorkspaceContext.Provider
@@ -141,7 +159,7 @@ export function Workspace() {
                 <ViewportPanel>
                   {dragList &&
                     dragList.map((item, i) => (
-                      <ViewPanel item={item} key={i} />
+                      <ViewPanel item={item} key={item.componentId} list={dragList}/>
                     ))}
                 </ViewportPanel>
               </div>

@@ -1,6 +1,4 @@
 export interface IComponentElementsProps {
-  key: string;
-  id: number;
   status: 'init' | 'done';
   type: string;
   icon: string;
@@ -9,6 +7,6 @@ export interface IComponentElementsProps {
   componentId?: string;
 }
 export interface IWorkspaceContext{
-  markAsDone: (id:number) => void,
-  onChangeDragSelectedStatus: (index: number) =>void
+  markAsDone: (item:IComponentElementsProps) => void,
+  onChangeDragSelectedStatus: (componentId?: string,list?:any) =>void
 }

@@ -12,59 +12,45 @@ import { v4 } from 'uuid';
 export const WorkspaceContext = createContext<Partial<IWorkspaceContext>>({});
 
 export function Workspace() {
-  const [componentList, setComponentList] = useState<IComponentElementsProps[]>(
+  const [tools, setTools] = useState<IComponentElementsProps[]>(
     [
       {
-        key: (Math.random() * 100).toFixed(0),
-        id: 1,
         status: "init",
         type: "Text",
         icon: "Text",
         text: "文本",
       },
       {
-        key: (Math.random() * 100).toFixed(0),
-        id: 2,
         status: "init",
         type: "RichText",
         icon: "Rich Text",
         text: "富文本",
       },
       {
-        key: (Math.random() * 100).toFixed(0),
-        id: 3,
         status: "init",
         type: "Number",
         icon: "Number",
         text: "数字",
       },
       {
-        key: (Math.random() * 100).toFixed(0),
-        id: 4,
         status: "init",
         type: "MultipleChoice",
         icon: "Multiple choice",
         text: "多选",
       },
       {
-        key: (Math.random() * 100).toFixed(0),
-        id: 5,
         status: "init",
         type: "DateChoice",
         icon: "Multiple choice",
         text: "日期",
       },
       {
-        key: (Math.random() * 100).toFixed(0),
-        id: 6,
         status: "init",
         type: "Image",
         icon: "Multiple choice",
         text: "图片",
       },
       {
-        key: (Math.random() * 100).toFixed(0),
-        id: 7,
         status: "init",
         type: "Link",
         icon: "Multiple choice",
@@ -72,32 +58,49 @@ export function Workspace() {
       },
     ]
   );
-
   const [dragList, setDragList] = useState<IComponentElementsProps[]>();
 
-  const markAsDone = (id: number) => {
+  const markAsDone = (item: IComponentElementsProps) => {
+    console.log('id',item);
+    // create a new one each time.
+    const componentList:IComponentElementsProps[] = [];
 
-    const components = componentList.filter((item, i) => item.id === id);
-    components[0].status = "done";
-    components[0].componentId = v4();
+    const createComponentEle:IComponentElementsProps = {
+      componentId:v4(),
+      status: "init",
+      type: item.type,
+      icon: "Text",
+      text: "文本",
+      selected: false
+    }
 
-    initializationSelectedItems(components);
-    console.log('result',components);
+    componentList.push(createComponentEle);
+    // {
+    //   key: (Math.random() * 100).toFixed(0),
+    //   id: 1,
+    //   status: "init",
+    //   type: "Text",
+    //   icon: "Text",
+    //   text: "文本",
+    // }
+
+    // const components = componentList.filter((item, i) => item.id === id);
+    // components[0].status = "done";
+    // components[0].componentId = v4() + '-' + Math.random();
+    // initializationSelectedItems(components);
 
     setDragList((state) => {
-      console.log('state',state);
       if (state) {
-        return components.concat(state);
+        return componentList.concat(state);
       }
-      return components;
+      return componentList;
     });
 
-    const list = componentList
-      .filter((item, i) => item.id !== id)
-      .concat(components[0])
-      .sort((a, b) => a.id - b.id);
-
-    setComponentList(list.sort());
+    // const list = componentList
+    //   .filter((item, i) => item.id !== id)
+    //   .concat(componentList[0])
+    //   .sort((a, b) => a.id - b.id);
+    setTools(componentList);
   };
 
   const initializationSelectedItems = (
@@ -115,27 +118,33 @@ export function Workspace() {
     return result;
   };
 
-  console.log("dragList", dragList);
-  const onChangeDragSelectedStatus = (index: number) => {
-    console.log("index", index);
-    console.log("dragList", dragList);
-    // const result:IComponentElementsProps[] = dragList?.map((item,key)=>{
-    //   item.id === index? item.selected = true:item.selected = false
-    //   return item;
-    // });
-    // console.log('result',result);
-    // setDragList(result);
-  }
+
+  // TODO：数据渲染的方法应该不对.
+  const onSelectedItem = useCallback((componentId?: string,list?:any)=>{
+    console.log('componentId',componentId);
+    console.log('list',list);
+  },[]);
+  
+  // (componentId?: string,list?:any) => {
+  //   console.log('componentId',componentId);
+  //   console.log('dragList',dragList);
+  //   console.log('list',list);
+  //   // const result:IComponentElementsProps[] | undefined = dragList?.map((item,key)=>{
+  //   //   item.componentId === componentId? item.selected = true:item.selected = false
+  //   //   return item;
+  //   // });
+  //   // console.log('result',result);
+  //   // setDragList(result);
+  // }
 
   const onHandleSaveChanges = useCallback(() => {
-    console.log("dragList", dragList);
   }, [dragList]);
 
-  console.log("void List", dragList);
+  console.log('dragList',dragList);
 
   return (
     <WorkspaceContext.Provider
-      value={{ markAsDone, onChangeDragSelectedStatus }}>
+      value={{ markAsDone }}>
       <div className={styles.workspace}>
         <div className={styles.navigation}>Nav Bar</div>
         <div className={styles.wrapper}>
@@ -144,8 +153,8 @@ export function Workspace() {
           </div>
           <div className={styles.designer}>
             <div className={styles.sidebar}>
-              {componentList.map((item, key) => {
-                return <StudioPanel item={item} key={item.key} />;
+              {tools.map((item, key) => {
+                return <StudioPanel item={item} key={item.type} />;
               })}
             </div>
             <div className={styles.content_model}>
@@ -159,7 +168,7 @@ export function Workspace() {
                 <ViewportPanel>
                   {dragList &&
                     dragList.map((item, i) => (
-                      <ViewPanel item={item} key={item.componentId} list={dragList}/>
+                      <ViewPanel onSelectedItem={onSelectedItem} item={item} key={item.componentId} list={dragList}/>
                     ))}
                 </ViewportPanel>
               </div>

@@ -2,19 +2,19 @@ import { useContext } from "react";
 import { useDrop } from "react-dnd";
 import { ItemTypes } from "./ItemTypes";
 import { WorkspaceContext } from "./Workspace";
-import { IWorkspaceContext } from "../shared/types";
+import { IWorkspaceContext,IComponentElementsProps } from "../shared/types";
 
 interface IBoxTargetProps {
   children: React.ReactNode;
 }
 
 export const ViewportPanel: React.FC<IBoxTargetProps> = (props) => {
-  const { markAsDone } = useContext<IWorkspaceContext>(WorkspaceContext);
+  const { markAsDone } = useContext<Partial<IWorkspaceContext>>(WorkspaceContext);
   const [{ isOver }, drop] = useDrop(
     () => ({
       accept: ItemTypes.BOX,
-      drop: (item: { id: number }, monitor) => {
-        markAsDone(item.id);
+      drop: (item:IComponentElementsProps, monitor) => {
+        markAsDone?.(item);
       },
       collect: (monitor) => ({
         isOver: monitor.isOver(),

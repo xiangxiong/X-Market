@@ -10,7 +10,7 @@ interface IStudioPanelProps {
 export const StudioPanel: React.FC<IStudioPanelProps> = ({ item }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.BOX,
-    item: { id:item.id },
+    item: item,
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
       handlerId: monitor.getHandlerId(),

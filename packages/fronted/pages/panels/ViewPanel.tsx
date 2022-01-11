@@ -18,20 +18,19 @@ import { IWorkspaceContext } from "../shared/types";
 interface IViewPanelProps {
   item: IComponentElementsProps;
   list: any;
+  onSelectedItem: (componentId?: string,list?:any) =>void
 }
 
 export const ViewPanel: React.FC<IViewPanelProps> = (props) => {
 
-  const  {item,list} = props;
   console.log('props',props);
-  console.log('item',item);
-
+  const  {item,list,onSelectedItem} = props;
   const [active, setActive] = useState<boolean>();
   const { onChangeDragSelectedStatus } =
-    useContext<IWorkspaceContext>(WorkspaceContext);
+    useContext<Partial<IWorkspaceContext>>(WorkspaceContext);
 
   const onViewPanelHandleClick = useCallback(() => {
-    onChangeDragSelectedStatus(item.id,list);
+    onSelectedItem(item.componentId,list);
   }, []);
 
   const viewPanelCls = classNames(styles.view_panel, {

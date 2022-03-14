@@ -117,8 +117,7 @@ export function Workspace() {
     });
     return result;
   };
-
-
+  
   // TODO：数据渲染的方法应该不对.
   const onSelectedItem = useCallback((componentId?: string,list?:any)=>{
     console.log('componentId',componentId);

@@ -25,4 +25,4 @@ npm run start:backend  后端
 
 - 把产品功能和用途、idea 先 sales 出去.
 - 解决用户什么样的痛点.
--
+- 用户是否愿意使用.

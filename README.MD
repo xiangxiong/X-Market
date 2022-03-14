@@ -20,3 +20,9 @@ npm run start:backend  后端
 ● 提供 JSSDK.
 ● 数据模型管理.
 ● 内容管理.
+
+## sales
+
+- 把产品功能和用途、idea 先 sales 出去.
+- 解决用户什么样的痛点.
+-
